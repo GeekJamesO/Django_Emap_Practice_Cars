@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Registration and Login Page</title>
+    <link rel="stylesheet" href="/static/authentication_app/master.css">
+</head>
+
+<body>
+    <div class="Container">
+        <div class="header">
+            logged in user: {{request.session.First_Name}} {{request.session.Last_Name}}
+        </div>
+        <div class="MessageContainer">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="RegistrationContainer">
+            <div class="lblSpacer"></div>
+            <h2>Registration</h2>
+            <form class="" action="/register" method="post">
+                {% csrf_token %}
+                <div class="InputRow">
+                    <label class="lblClass" for="First_Name">First Name:</label>
+                    <input class="inpClass" type="text" name="First_Name" required=True min="4" value="">
+                </div>
+                <div class="InputRow">
+                    <label class="lblClass" for="Last_Name">Last Name:</label>
+                    <input class="inpClass" type="text" name="Last_Name" required=True min="4" value="">
+                </div>
+                <div class="InputRow">
+                    <label class="lblClass" for="Email">Email:</label>
+                    <input class="inpClass" type="text" name="Email" required=True value="">
+                </div>
+                <div class="InputRow">
+                    <label class="lblClass" for="Password">Password:</label>
+                    <input class="inpClass" type="password" name="Password" required=True min="8" value="">
+                </div>
+                <div class="InputRow">
+                    <label class="lblClass" for="Confirm">Confirm Password:</label>
+                    <input class="inpClass" type="password" name="Confirm" required=True min="8" value="">
+                </div>
+                <div class="lblClass"></div>
+                <button type="submit" name="submit">Create New User</button>
+                <button type="reset" name="reset">Reset</button>
+            </form>
+        </div>
+
+        <div class="LoginContainer">
+            <div class="lblSpacer"></div>
+            <h2>Login</h2>
+            <form class="" action="/login" method="post">
+                {% csrf_token %}
+                <div class="InputRow">
+                    <label class="lblClass" for="Email">Email:</label>
+                    <input class="inpClass" type="email" name="Email" required=True placeholder="foo@bar.com" value="">
+                </div>
+                <div class="InputRow">
+                    <label class="lblClass" for="Password">Password:</label>
+                    <input class="inpClass" type="password" name="Password" required=True min="8" value="">
+                </div>
+                <div class="lblClass"></div>
+                <button type="submit" name="submit">Login</button>
+                <button type="reset" name="reset">Reset</button>
+            </form>
+        </div>
+        <br>
+
+        <div class="Footer">
+            Footer Contents
+        </div>
+
+    </div>
+</body>
+
+</html>

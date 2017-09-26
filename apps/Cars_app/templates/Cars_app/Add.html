@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add Car</title>
+    </head>
+    <body>
+        <div class="Container">
+            <div class="header">
+                Add a car to {{request.session.First_Name}} {{request.session.Last_Name}}'s collection.
+            </div>
+            <div class="MessageContainer">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                        {{ message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <form class="" action="/cars/createcar" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="User_Id" value="{{thisuser.id}}">
+                <div class="InputRow">
+                    <label for="make">Make:</label>
+                    <input type="text" name="make" required=True min=3 max=100 value="">
+                </div>
+                <div class="InputRow">
+                    <label for="model">Model:</label>
+                    <input type="text" name="model" required=True min=3 max=100 value="">
+                </div>
+                <div class="InputRow">
+                    <label for="year">Year:</label>
+                    <input type="number" name="year" requird=True min=1905 max=2050 value="">
+                </div>
+                <button type="submit" name="submit">Submit</button>
+                <button type="reset" name="reset">Reset</button>
+            </form>
+        </div>
+    </body>
+</html>

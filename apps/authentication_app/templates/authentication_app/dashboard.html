@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Cars Page</title>
+        <link rel="stylesheet" href="/static/authentication_app/master.css">
     </head>
+
     <body>
         <div class="Container">
             <div class="header">
-                Welcome: {{request.session.First_Name}} {{request.session.Last_Name}}
-                <a href="/logoff">Logoff User</a>
+                logged in user: {{request.session.First_Name}} {{request.session.Last_Name}}
             </div>
             <div class="MessageContainer">
                 {% if messages %}
@@ -22,21 +22,15 @@
                 </ul>
                 {% endif %}
             </div>
-        <h1>Your Cars</h1>
-        {% for car in myCars%}
-            <p> {{car.Make}} {{car.Model}} {{car.Year}} </p>
-        {% endfor%}
-            <a href="/cars/add">Add a car</a>
-
-        <h1>Not your Cars</h1>
-        {% for aUser in otherUsers %}
-            <h2>{{aUser.First_Name}} {{aUser.Last_Name}}</h2>
-            {% for aCar in allCars%}
-                {%if aCar.OwnerId == aUser.id %}
-                <p> {{car.Make}} {{car.Model}} {{car.Year}} </p>
-                {%endif%}
-            {% endfor%}
-
-        {% endfor%}
+        <h1>Auth dashboard</h1>
+        Logged in user: <br>
+        <div class="InputRow">
+            <label class="lblClass" for="UserName">Last Name:</label>
+            <div class="inpClass">{{request.session.Last_Name}}</div>
+        </div>
+        <div class="InputRow">
+            <label class="lblClass" for="UserName">Email:</label>
+            <div class="inpClass">{{request.session.Email}}</div>
+        </div>
     </body>
 </html>

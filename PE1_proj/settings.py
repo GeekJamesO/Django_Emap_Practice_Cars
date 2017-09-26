@@ -30,7 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [ 'apps.Cars_app',
+INSTALLED_APPS = [
+    'apps.authentication_app',
+    'apps.Cars_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
