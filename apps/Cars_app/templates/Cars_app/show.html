@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User id {{thisUser.id}}</title>
+    </head>
+    <body>
+        <div class="header">
+            Welcome: {{request.session.First_Name}} {{request.session.Last_Name}} <br>
+            <a href="/logoff">Logoff User</a> <br>
+            <a href="/cars/">Return to list</a> <br>
+        </div>
+
+        <h1>{{thisUser.First_Name}} {{thisUser.Last_Name}} </h1>
+        Id: {{thisUser.id}} <br>
+        Email: {{thisUser.Email}} <br>
+        Cars:
+        <ul>
+            {% for aCar in thisUser.Carz.all %}
+            <li> {{aCar.Make}} {{aCar.Model}} {{aCar.Year}} </li>
+            {% endfor%}
+        </ul>
+    </body>
+</html>

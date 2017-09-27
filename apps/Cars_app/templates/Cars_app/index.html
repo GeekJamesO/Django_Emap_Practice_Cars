@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Cars Page</title>
-    </head>
-    <body>
-        <div class="Container">
-            <div class="header">
-                Welcome: {{request.session.First_Name}} {{request.session.Last_Name}}
-                <a href="/logoff">Logoff User</a>
-            </div>
-            <div class="MessageContainer">
-                {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-                        {{ message }}
+
+<head>
+    <meta charset="utf-8">
+    <title>Cars Page</title>
+</head>
+
+<body>
+    <div class="Container">
+        <div class="header">
+            Welcome: {{request.session.First_Name}} {{request.session.Last_Name}} <br>
+            <a href="/logoff">Logoff User</a>
+        </div>
+        <div class="MessageContainer">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %} {{ message }}
                     </li>
                     {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
+            </ul>
+            {% endif %}
+        </div>
         <h1>Your Cars</h1>
-        {% for car in myCars%}
-            <p> {{car.Make}} {{car.Model}} {{car.Year}} </p>
-        {% endfor%}
-            <a href="/cars/add">Add a car</a>
-
-        <h1>Not your Cars</h1>
-        {% for aUser in otherUsers %}
-            <h2>{{aUser.First_Name}} {{aUser.Last_Name}}</h2>
-            {% for aCar in allCars%}
-                {%if aCar.OwnerId == aUser.id %}
-                <p> {{car.Make}} {{car.Model}} {{car.Year}} </p>
-                {%endif%}
+        <ul>
+            {% for aCar in user.Carz.all %}
+            <li> {{aCar.Make}} {{aCar.Model}} {{aCar.Year}} </li>
             {% endfor%}
+        </ul>
+        <a href="/cars/add">Add a car</a>
+
+        <h1>Not your Cars</h1> {% for aUser in otherUsers %}
+        <a href="/cars/show/{{aUser.id}}"><h3>{{aUser.First_Name}} {{aUser.Last_Name}}</h2></a>
+            <ul>
+            {% for aCar in aUser.Carz.all %}
+                <li> {{aCar.Make}} {{aCar.Model}} {{aCar.Year}} </li>
+            {% endfor%}
+            </ul>
 
         {% endfor%}
     </body>

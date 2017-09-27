@@ -74,4 +74,4 @@ class User(models.Model):
     Confirm = models.CharField(max_length = 200)
     objects = UserManager()
     def __str__(self):
-        return "{} {} {}".format(First_Name, Last_Name, Email)
+        return "{} {} {}".format(self.First_Name, self.Last_Name, self.Email)

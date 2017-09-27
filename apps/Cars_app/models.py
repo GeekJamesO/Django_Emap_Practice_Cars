@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
-from ..authentication_app.models import *
+from ..authentication_app.models import User
 
 class CarManager(models.Manager):
     def Validate(self, RequestPost):
@@ -44,7 +44,7 @@ class CarManager(models.Manager):
                 Make = RequestPost['make'],
                 Model = RequestPost['model'],
                 Year = RequestPost['year'],
-                OwnerId = int(RequestPost['User_Id']),
+                OwnerId = User.objects.get(id=RequestPost['User_Id']),
             )
             newCar.save()
             result['ThisCar'] = newCar
@@ -55,7 +55,10 @@ class Car(models.Model):
     Make = models.CharField(max_length = 100)
     Model = models.CharField(max_length = 100)
     Year = models.CharField(max_length = 10)
-    OwnerId = models.IntegerField(default=0)
+    OwnerId = models.ForeignKey(
+        User,
+        related_name = "Carz"
+        )
     objects = CarManager()
 
     def __str__(self):
